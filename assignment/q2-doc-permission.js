@@ -39,12 +39,12 @@ class Permission{
     #operation;
 
     // constructor
-    constructor(role, operation){
+    constructor(role, operation){        
         if(this.constructor.name === "Permission"){
             throw new Error("This class cannot be instantiated");
         }
         this.#role = role;
-        this.#operation = operation
+        this.#operation = operation        
     }
 
     // function
@@ -66,10 +66,38 @@ class Permission{
                 }
                 return false;
             default:
-                return false;
-                
+                return false;                
         }
     }
 }
 
 // Add code here
+class Document extends Permission{
+
+    constructor(role, operation, content){
+		super(role,operation,content);      //"super()" keyword is only used in subclass to call its parent class so to pass back the arguments for them to handle.      
+    }                                       //Eg; Like a child who only collect the data, and pass the data back to parent to handle.
+
+    process(){
+		super.check();              //"super" keyword allows the subclass to call it's parent method
+
+	if(super.check() === true)
+		console.log('Allowed');
+	else
+		console.log('Blocked');
+    }
+}
+
+// const d = new Document(Permission.RolesConst.EDITOR, Permission.OperationsConst.UPDATE, "Hello content");
+// d.process(); // "Allowed"
+
+// const d = new Document(Permission.RolesConst.READER, Permission.OperationsConst.UPDATE, "Hello content")
+// d.process(); // "Blocked"
+
+const d = new Document(Permission.RolesConst.OWNER, Permission.OperationsConst.DELETE, "Hello content");
+d.process(); // "Allowed" 
+
+
+//Example of Referencing Online Resources    
+    //1. https://www.w3schools.com/js/js_class_inheritance.asp
+    //2. https://www.geeksforgeeks.org/how-to-call-a-parent-method-from-child-class-in-javascript/  
