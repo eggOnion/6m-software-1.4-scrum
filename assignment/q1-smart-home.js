@@ -14,9 +14,9 @@ class BaseSignal {
 		if(new.target===BaseSignal){
 
 		//throw new Error will prevent the code from continue running
-		throw new Error('Not advisible to instantiated base class. You will get an error if using c#');
+		throw new Error('Not advisible to instantiate base class. You will get an error if using c#');
   
-		//or use console.error()
+		//or use console.error() which will still allow the code to run
 		console.error(`
 		Base on my understand - The base class serve as an abstract to provide common interface & behavior for 
             their subclass. It was never meant to be used.
@@ -32,7 +32,9 @@ class BaseSignal {
             
             Pls correct my understanding if I'm wrong. Appreciated🙏`);  
         }
-        this.type=signalType;
+        this.type=signalType;       //The "this" keyword can be used in both parent & subclass. It defines that 
+                                    //this argument being passed into this constructor can only be used within this class
+
     }
     send() {
         console.log(`Sending ${this.type} signals`);
@@ -42,7 +44,8 @@ class BaseSignal {
 class TvSignal extends BaseSignal {
     constructor() {
         // Add code here               
-        super('tv');
+        super('tv');                //The "super()" keyword however are only used in the subclass, it will pass
+                                    //the argument back to it's parent for handling.
     }
 }
 
@@ -60,7 +63,7 @@ class DoorSignal extends BaseSignal {
     }
 }
 
-// const baseSignal = new BaseSignal();              //throw error when base class instantiated
+//const baseSignal = new BaseSignal();              //throw error when base class instantiated
 // baseSignal.send();
 
 
